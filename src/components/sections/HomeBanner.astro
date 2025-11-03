@@ -1,0 +1,43 @@
+---
+import Icon from "../Icon.astro";
+
+const homeBanner = [
+    { title: "Titulo 1", image: "/background/background-rose.png" },
+];
+
+---
+<section 
+    id="banner"
+    class="relative h-[85vh] bg-center bg-cover transition-all duration-700"
+    style={`background-image: url('${homeBanner[0].image}')`}
+>
+    <div class="flex justify-between absolute bottom-10 w-full px-10">
+        <Icon id='prev' name="arrow" class="size-8 rotate-180 cursor-pointer"/>
+        <Icon id='next' name="arrow" class="size-8 cursor-pointer"/>
+    </div>
+</section>
+
+<script is:inline>
+    const homeBanner = [
+        "/background/background-rose.png",
+        "/background/background.svg",
+        "/background/bg-shops.png"
+    ];
+
+    let current = 0;
+    const banner = document.getElementById("banner");
+
+    const changeBackground = (index) => {
+        banner.style.backgroundImage = `url('${homeBanner[index]}')`;
+    };
+
+    document.getElementById("next").addEventListener("click", () => {
+        current = (current + 1) % homeBanner.length;
+        changeBackground(current);
+    });
+
+    document.getElementById("prev").addEventListener("click", () => {
+        current = (current - 1 + homeBanner.length) % homeBanner.length;
+        changeBackground(current);
+    });
+</script>
