@@ -1,18 +1,23 @@
 ---
-const { label } = Astro.props;
+const { label, bgButton, bgButtonHover, txtButton, txtHover } = Astro.props;
 ---
-<button class="outline-none cursor-pointer border-none px-7 py-3 relative inline-block tracking-tighter rounded-full overflow-hidden">
+<button 
+    class="outline-none cursor-pointer border-none px-7 py-3 relative inline-block tracking-tighter rounded-full overflow-hidden"
+    style=`
+        background-color: ${bgButtonHover}; 
+        color: ${txtButton}; 
+        --button-hover: ${txtHover}; 
+        --bg-button-hover: ${bgButton}
+    `
+    >
     <span class="relative transition-all duration-500 text-xl"> { label } </span>
 </button>
 
 <style>
-    button {
-        background: #e120ff;
-        color: white;
-    }
 
     button:hover span {
-        color: white;
+        /* color: white; */
+        color: var(--button-hover);
     }
 
     button::before,
@@ -27,7 +32,7 @@ const { label } = Astro.props;
 
     button::before {
         content: "";
-        background: #ae00ff;
+        background: var(--bg-button-hover);
         width: 120%;
         left: -10%;
         transform: skew(30deg);

@@ -1,7 +1,7 @@
 ---
 import Button from "./ui/Button.astro";
 
-const { images, label, source } = Astro.props;
+const { images, label, source, bgButton, bgButtonHover, txtButton, txtHover } = Astro.props;
 ---
 
 <div class="py-16 space-y-16">
@@ -20,7 +20,23 @@ const { images, label, source } = Astro.props;
     </div>
 
     <div class="grid justify-self-center ">
-        <Button label={label} />
+        <!-- <Button 
+            label={label} 
+            
+            bgButton="#aerff"
+            bgButtonHover="#e120ff"
+
+            txtButton="white"
+            txtHover="white"
+        /> -->
+
+        <Button 
+            label={label}
+            bgButton={bgButton}
+            bgButtonHover={bgButtonHover}
+            txtButton={txtButton}
+            txtHover={txtHover}
+        />
     </div>
 </div>
 
@@ -46,11 +62,11 @@ const { images, label, source } = Astro.props;
             const emblaApi = EmblaCarousel(
                 emblaNode,
                 {
-                    loop: true,
+                    loop: false,
                     dragFree: true,
                     align: "start",
                 },
-                [autoplay]
+                /* [autoplay] */
             );
             console.log("Embla con autoplay iniciado:", emblaApi.slideNodes());
         });
