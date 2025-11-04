@@ -1,0 +1,83 @@
+---
+import Icon from "./Icon.astro";
+
+const socialLinks = [
+    { name: "facebook", link: "https://www.facebook.com" },
+    { name: "instagram", link: "https://www.instagram.com" },
+];
+---
+
+<div class="relative mt-16 bg-deep-purple-accent-400">
+    <svg class="absolute top-0 w-full h-6 -mt-5 sm:-mt-10 sm:h-16 text-deep-purple-accent-400" preserveAspectRatio="none" viewBox="0 0 1440 54">
+        <path fill="#EC0868" d="M0 22L120 16.7C240 11 480 1.00001 720 0.700012C960 1.00001 1200 11 1320 16.7L1440 22V54H1320C1200 54 960 54 720 54C480 54 240 54 120 54H0V22Z"></path>
+    </svg>
+
+<div class="bg-[#EC0868] px-4 pt-12 mx-auto sm:max-w-xl md:max-w-full lg:max-w-9xl md:px-24 lg:px-8">
+    <div class="grid gap-16 row-gap-10 mb-8 lg:grid-cols-5">
+        <div class="grid gap-6 justify-self-center w-full">
+            <a href="/" class="">
+                <img src="../logo-pg.png" alt="planigrupo logo" class="w-56" />
+            </a>
+
+            <a href="/" class="">
+                <img src="../logo.png" alt="planigrupo logo" class="w-28" />
+            </a>
+        </div>
+
+        <div class="text-white grid grid-cols-2 gap-5 row-gap-8 lg:col-span-4 md:grid-cols-4">
+            <!-- Planigrupo -->
+            <div>
+                <p class="font-semibold tracking-wide text-teal-accent-400"> Planigrupo </p>
+                <div class="mt-2 space-y-2 grid w-fit">
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Nosotros </a>
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Portafolio </a>
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Comercialización </a>
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Inversionistas </a>
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Contacto </a>
+                </div>
+            </div>
+
+            <!-- Mapa del Sitio -->
+            <div>
+                <p class="font-semibold tracking-wide text-teal-accent-400"> Mapa del Sitio </p>
+                <div class="mt-2 space-y-2 grid w-fit">
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Inicio </a>
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Directorio </a>
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Eventos </a>
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Anuncios </a>
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> Contacto </a>
+                </div>
+            </div>
+
+            <!-- Contacto -->
+            <div class="lg:w-80">
+                <p class="font-semibold tracking-wide text-teal-accent-400"> Contacto </p>
+                <div class="mt-2 space-y-2 grid w-fit">
+                    <span> Lunes a Domingo de 9:00 am - 10:00 pm </span>
+
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> 
+                        Av. Eugenio Garza Sada Sur 3431, Sin Nombre de Col 42, 64845 Monterrey, N.L.
+                    </a>
+                    
+                    <a href="/" class="hover:underline transition-colors duration-300 text-deep-purple-50 hover:text-teal-accent-400"> 
+                        +52 (818)-387-3888
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col justify-between pt-5 pb-10 border-t border-white border-deep-purple-accent-200 sm:flex-row">
+        <p class="text-sm text-gray-100">
+            © {new Date().getFullYear()} Planigrupo | <a href="https://planigrupo.com.mx/aviso-de-privacidad/" class="underline"> Aviso De Privacidad </a>
+        </p>
+
+        <div class="flex items-center mt-4 space-x-4 sm:mt-0">
+            {socialLinks.map(({ name, link }) => (
+                <a href={link} target="_blank" rel="noopener noreferrer">
+                    <Icon name={name} class="size-6 text-white hover:text-gray-600 transition" />
+                </a>
+            ))}
+        </div>
+    </div>
+</div>
