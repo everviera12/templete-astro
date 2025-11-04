@@ -1,0 +1,37 @@
+---
+const { imagePaths } = Astro.props;
+---
+
+<div class="embla">
+    <div class="embla__container">
+        {imagePaths.map(({src, i}: any) => (
+            <img src={src} alt={`slide ${i + 1}`} class="w-100" />
+        ))}
+    </div>
+</div>
+
+<style>
+    .embla {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .embla__container {
+        display: flex;
+        gap: 28px;
+        justify-content: center;
+        padding: 4rem 0;
+    }
+
+
+</style>
+
+<script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        const emblaNode = document.querySelector(".embla");
+        if (!emblaNode) return;
+        const emblaApi = EmblaCarousel(emblaNode, { loop: true });
+        console.log("Embla iniciado:", emblaApi.slideNodes());
+    });
+</script>
