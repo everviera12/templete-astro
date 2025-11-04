@@ -12,7 +12,7 @@ const { images } = Astro.props;
             ))}
         </div>
 
-        <img src="./assets/wave_2.png" class="w-140 absolute left-0 -translate-y-1/2 -z-10"/>
+        <img src="../assets/wave_2.png" class="w-140 absolute left-0 -translate-y-1/2 -z-10"/>
     </div>
 
     <div class="grid justify-self-center ">
@@ -32,16 +32,25 @@ const { images } = Astro.props;
     .embla__container {
         display: flex;
         gap: 28px;
-        justify-content: start;
     }
 </style>
 
 <script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+<script src="https://unpkg.com/embla-carousel-autoplay/embla-carousel-autoplay.umd.js"></script>
 <script is:inline>
     document.addEventListener("DOMContentLoaded", () => {
-        const emblaNode = document.querySelector(".embla");
-        if (!emblaNode) return;
-        const emblaApi = EmblaCarousel(emblaNode, { loop: true, dragFree: true, align: 'start' });
-        console.log("Embla iniciado:", emblaApi.slideNodes());
+        document.querySelectorAll(".embla").forEach((emblaNode) => {
+            const autoplay = EmblaCarouselAutoplay({ delay: 5000 }); 
+            const emblaApi = EmblaCarousel(
+                emblaNode,
+                {
+                    loop: true,
+                    dragFree: true,
+                    align: "start",
+                },
+                [autoplay]
+            );
+            console.log("Embla con autoplay iniciado:", emblaApi.slideNodes());
+        });
     });
 </script>

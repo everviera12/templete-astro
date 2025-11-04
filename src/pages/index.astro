@@ -4,6 +4,7 @@ import path from "path";
 import HomeBanner from "../components/sections/HomeBanner.astro";
 import Layout from "../layouts/Layout.astro";
 import Carousel from "../components/Carousel.astro";
+import Button from "../components/ui/Button.astro";
 
 const dirPath = path.resolve("public/events");
 const dirPathNoti = path.resolve("public/notifications");
@@ -13,10 +14,10 @@ const imageFilesNoti = fs.readdirSync(dirPathNoti).filter((file) => file.match(/
 
 const imagePaths = imageFiles.map((file) => `/events/${file}`);
 const imagePathsNoti = imageFilesNoti.map((file) => `/notifications/${file}`);
-
 ---
 
 <Layout title="Inicio | Urban Village">
     <HomeBanner />
-    <Carousel images={imagePaths} /> 
+    <Carousel images={imagePaths} />
+    <Carousel images={imagePathsNoti} />
 </Layout>
