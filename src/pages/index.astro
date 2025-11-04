@@ -1,8 +1,50 @@
 ---
+import fs from "fs";
+import path from "path";
 import HomeBanner from "../components/sections/HomeBanner.astro";
 import Layout from "../layouts/Layout.astro";
+
+const dirPath = path.resolve("public/events");
+const imageFiles = fs.readdirSync(dirPath).filter((file) =>
+    file.match(/\.(png|jpe?g|gif|webp|svg)$/)
+);
+const imagePaths = imageFiles.map((file) => `/events/${file}`);
 ---
 
 <Layout title="Inicio | Urban Village">
     <HomeBanner />
+
+    <div class="embla">
+        <div class="embla__container">
+            {imagePaths.map((src, i) => (
+                <img src={src} alt={`slide ${i + 1}`} class="w-100" />
+            ))}
+        </div>
+    </div>
 </Layout>
+
+<style>
+    .embla {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .embla__container {
+        display: flex;
+        gap: 28px;
+        justify-content: center;
+        padding: 4rem 0;
+    }
+
+
+</style>
+
+<script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        const emblaNode = document.querySelector(".embla");
+        if (!emblaNode) return;
+        const emblaApi = EmblaCarousel(emblaNode, { loop: true });
+        console.log("Embla iniciado:", emblaApi.slideNodes());
+    });
+</script>
