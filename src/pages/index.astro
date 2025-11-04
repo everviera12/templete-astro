@@ -18,6 +18,7 @@ const imagePathsNoti = imageFilesNoti.map((file) => `/notifications/${file}`);
 
 <Layout title="Inicio | Urban Village">
     <HomeBanner />
-    <Carousel images={imagePaths} />
-    <Carousel images={imagePathsNoti} />
+    <Carousel images={imagePaths} label="Ver eventos" source="../assets/wave_2.png"/>
+    <!-- DIRECTORIO -->
+    <Carousel images={imagePathsNoti} label="Ver anuncios"/>
 </Layout>

@@ -1,7 +1,7 @@
 ---
 import Button from "./ui/Button.astro";
 
-const { images } = Astro.props;
+const { images, label, source } = Astro.props;
 ---
 
 <div class="py-16 space-y-16">
@@ -12,13 +12,15 @@ const { images } = Astro.props;
             ))}
         </div>
 
-        <img src="../assets/wave_2.png" class="w-140 absolute left-0 -translate-y-1/2 -z-10"/>
+        {source ? (
+            <img src={source} class="w-140 absolute left-0 -translate-y-1/2 -z-10" />
+        ) : (
+            <img src="./assets/wave_1.png" class="w-200 absolute right-0 -translate-y-8/12 -z-10" />
+        )}
     </div>
 
     <div class="grid justify-self-center ">
-        <Button 
-            label="Ver eventos"
-        />
+        <Button label={label} />
     </div>
 </div>
 
