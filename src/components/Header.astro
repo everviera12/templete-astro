@@ -1,0 +1,121 @@
+<header class="grid w-full fixed z-10 justify-end md:justify-center md:mt-3">
+    <nav class="hidden md:flex gap-12 items-center bg-white/85 rounded-full py-3 px-10">
+        <a href="/eventos">Eventos</a>
+        <a href="/directorio">Directorio</a>
+        <a href="/"><img src="./favicon.ico" class="w-12 h-12"/></a>
+        <a href="/ubicacion">Ubicación</a>
+        <a href="/ubicacion#contacto">Contacto</a>
+    </nav>
+
+    <div id="burger-menu" class="bg-pink-600 rounded-full p-6 m-6 relative z-10 block md:hidden">
+        <span class="mx-2.5 my-2"></span>
+    </div>
+
+    <nav id="menu">
+        <a href="/" class=""><img src="./favicon.ico" class="w-36"/></a>
+        <a href="/eventos">Eventos</a>
+        <a href="/directorio">Directorio</a>
+        <a href="/ubicacion">Ubicación</a>
+        <a href="/ubicacion#contacto">Contacto</a>
+    </nav>
+</header>
+
+<style>
+    #burger-menu {
+        span,
+        span:before,
+        span:after {
+            background: #fff;
+            display: block;
+            height: 2px;
+            opacity: 1;
+            position: absolute;
+            transition: 0.3s ease-in-out;
+        }
+
+        span:before,
+        span:after {
+            content: '';
+        }
+
+        span:before {
+            left: 0px;
+            top: -10px;
+            width: 27px;
+        }
+
+        span {
+            right: 0px;
+            top: 13px;
+            width: 27px;
+        }
+
+        span:after {
+            left: 0px;
+            top: 10px;
+            width: 27px;
+        }
+
+        &.close {
+            span:before {
+                top: 0px;
+                transform: rotate(90deg);
+                width: 27px;
+            }
+
+            span {
+                transform: rotate(-45deg);
+                top: 13px;
+                width: 27px;
+            }
+
+            span:after {
+                top: 0px;
+                left: 0;
+                transform: rotate(90deg);
+                opacity: 0;
+                width: 0;
+            }
+        }
+    }
+
+    #menu {
+        min-width: 100%;
+        min-height: 100%;
+        position: fixed;
+        top: 0;
+        height: 0;
+        visibility: hidden;
+        opacity: 0;
+        text-align: center;
+        padding-top: 20px;
+        transition: all 0.3s ease-in-out;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &.overlay {
+            visibility: visible;
+            opacity: 1;
+            padding-top: 100px;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        a {
+            color: #fff;
+            display: block;
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+    }
+</style>
+
+<script>
+    const burgerMenu = document.getElementById('burger-menu');
+    const overlay = document.getElementById('menu');
+
+    burgerMenu?.addEventListener('click', function() {
+        this.classList.toggle("close");
+        overlay?.classList.toggle("overlay");
+    });
+</script>
