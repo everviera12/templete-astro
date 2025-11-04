@@ -1,17 +1,30 @@
 ---
-const { imagePaths } = Astro.props;
+import Button from "./ui/Button.astro";
+
+const { images } = Astro.props;
 ---
 
-<div class="embla">
-    <div class="embla__container">
-        {imagePaths.map(({src, i}: any) => (
-            <img src={src} alt={`slide ${i + 1}`} class="w-100" />
-        ))}
+<div class="py-16 space-y-16">
+    <div class="embla">
+        <div class="embla__container">
+            {images.map(( src, i ) => (
+                <img src={src} alt={`slide ${i + 1}`} class="w-100" />
+            ))}
+        </div>
+
+        <img src="/assets/wave_2.png" class="w-140 absolute left-0 -translate-y-1/2 -z-10"/>
+    </div>
+
+    <div class="grid justify-self-center ">
+        <Button 
+            label="Ver eventos"
+        />
     </div>
 </div>
 
 <style>
     .embla {
+        padding: 0 3rem;
         overflow: hidden;
         width: 100%;
     }
@@ -19,8 +32,7 @@ const { imagePaths } = Astro.props;
     .embla__container {
         display: flex;
         gap: 28px;
-        justify-content: center;
-        padding: 4rem 0;
+        justify-content: start;
     }
 
 
@@ -31,7 +43,7 @@ const { imagePaths } = Astro.props;
     document.addEventListener("DOMContentLoaded", () => {
         const emblaNode = document.querySelector(".embla");
         if (!emblaNode) return;
-        const emblaApi = EmblaCarousel(emblaNode, { loop: true });
+        const emblaApi = EmblaCarousel(emblaNode, { loop: true, dragFree: true, align: 'start' });
         console.log("Embla iniciado:", emblaApi.slideNodes());
     });
 </script>

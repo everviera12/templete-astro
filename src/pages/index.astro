@@ -6,13 +6,18 @@ import Layout from "../layouts/Layout.astro";
 import Carousel from "../components/Carousel.astro";
 
 const dirPath = path.resolve("public/events");
-const imageFiles = fs.readdirSync(dirPath).filter((file) =>
-    file.match(/\.(png|jpe?g|gif|webp|svg)$/)
-);
+const dirPathNoti = path.resolve("public/notifications");
+
+const imageFiles = fs.readdirSync(dirPath).filter((file) => file.match(/\.(png|jpe?g|gif|webp|svg)$/));
+const imageFilesNoti = fs.readdirSync(dirPathNoti).filter((file) => file.match(/\.(png|jpe?g|gif|webp|svg)$/));
+
 const imagePaths = imageFiles.map((file) => `/events/${file}`);
+const imagePathsNoti = imageFilesNoti.map((file) => `/notifications/${file}`);
+
 ---
 
 <Layout title="Inicio | Urban Village">
     <HomeBanner />
-    <Carousel imagePaths={imagePaths}>
+    <Carousel images={imagePaths} /> 
+    <!-- <Carousel images={imagePathsNoti} /> -->
 </Layout>
