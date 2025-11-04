@@ -11,9 +11,11 @@ const homeBanner = [
     class="relative h-[85vh] bg-center bg-cover transition-all duration-700"
     style={`background-image: url('${homeBanner[0].image}')`}
 >
-    <div class="flex justify-between absolute bottom-10 w-full px-10">
-        <Icon id='prev' name="arrow" class="size-8 rotate-180 cursor-pointer"/>
-        <Icon id='next' name="arrow" class="size-8 cursor-pointer"/>
+    <h1 id="banner_text" class="text-3xl">{homeBanner[0].title}</h1>
+
+    <div class="flex justify-between absolute bottom-0 w-full px-10 py-2.5 bg-pink-50">
+        <Icon id='prev' name="arrow" class="size-8 rotate-180 cursor-pointer stroke-2"/>
+        <Icon id='next' name="arrow" class="size-8 cursor-pointer stroke-2"/>
     </div>
 </section>
 
@@ -24,11 +26,21 @@ const homeBanner = [
         "/background/bg-shops.png"
     ];
 
+    const textBanner = [
+        "Titulo 1",
+        "Titulo 2",
+        "Titulo 3"
+    ]
+
     let current = 0;
     const banner = document.getElementById("banner");
+    const text = document.getElementById("banner_text");
+    const nextBtn = document.getElementById("next");
+    const prevBtn = document.getElementById("prev");
 
     const changeBackground = (index) => {
         banner.style.backgroundImage = `url('${homeBanner[index]}')`;
+        text.textContent = textBanner[index];
     };
 
     document.getElementById("next").addEventListener("click", () => {
