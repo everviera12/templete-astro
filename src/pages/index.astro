@@ -4,43 +4,46 @@ import path from "path";
 import HomeBanner from "../components/sections/HomeBanner.astro";
 import Layout from "../layouts/Layout.astro";
 import Carousel from "../components/Carousel.astro";
-import Button from "../components/ui/Button.astro";
+import CarouselStore from "../components/CarouselStore.astro";
 
 const dirPath = path.resolve("public/events");
 const dirPathNoti = path.resolve("public/notifications");
+const dirPathStores = path.resolve("public/store");
 
 const imageFiles = fs.readdirSync(dirPath).filter((file) => file.match(/\.(png|jpe?g|gif|webp|svg)$/));
 const imageFilesNoti = fs.readdirSync(dirPathNoti).filter((file) => file.match(/\.(png|jpe?g|gif|webp|svg)$/));
+const imageFilesStore = fs.readdirSync(dirPathStores).filter((file) => file.match(/\.(png|jpe?g|gif|webp|svg)$/));
 
 const imagePaths = imageFiles.map((file) => `/events/${file}`);
 const imagePathsNoti = imageFilesNoti.map((file) => `/notifications/${file}`);
+const imagePathsStore = imageFilesStore.map((file) => `/store/${file}`);
+console.log(imagePathsStore);
+
 ---
 
 <Layout title="Inicio | Urban Village">
     <HomeBanner />
-    <Carousel 
-        images={imagePaths} 
-        label="Ver eventos" 
-        source="../assets/wave_2.png"
 
+    <CarouselStore />
+
+    <Carousel
+        images={imagePaths}
+        label="Ver eventos"
+        source="../assets/wave_2.png"
         bgButton="#e120ff"
         bgButtonHover="#9E0059"
-
         txtButton="white"
         txtHover="white"
-        
     />
-    
+
     <!-- DIRECTORIO -->
-    
-<Carousel 
-    images={imagePathsNoti} 
-    label="Ver anuncios"
-    
-    bgButton="white"
-    bgButtonHover="#D81159" 
-    
-    txtButton="#e120ff"
-    txtHover="white"
-/>
+
+    <Carousel
+        images={imagePathsNoti}
+        label="Ver anuncios"
+        bgButton="white"
+        bgButtonHover="#D81159"
+        txtButton="#e120ff"
+        txtHover="white"
+    />
 </Layout>
