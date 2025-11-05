@@ -1,57 +1,81 @@
+---
+const { imagePathsStore } = Astro.props;
+console.log(imagePathsStore);
+---
+
 <style>
   .embla {
-    max-width: 48rem;
-    margin: 3rem auto;
-    --slide-height: 18rem;
-    --slide-spacing: 1rem;
-    --slide-size: 60%;
+    max-width: 92rem;
+    margin: 4rem 1.5rem;
+    padding: 1rem 0;
+    --slide-spacing: 2.5rem;
+    --slide-size: 20%;
   }
 
   .embla__viewport {
     overflow: hidden;
-    width: 100%;
   }
 
   .embla__container {
     display: flex;
-    touch-action: pan-y pinch-zoom;
-    margin-left: calc(var(--slide-spacing) * -1);
+    gap: var(--slide-spacing);
+    align-items: center;
   }
 
   .embla__slide {
     flex: 0 0 var(--slide-size);
-    min-width: 0;
-    padding-left: var(--slide-spacing);
-  }
-
-  .embla__slide__number {
-    background: linear-gradient(135deg, #7f5af0, #2cb67d);
-    color: white;
-    border-radius: 1rem;
-    font-size: 3rem;
-    font-weight: 700;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: var(--slide-height);
-    user-select: none;
-    transition: transform 0.3s ease, opacity 0.3s ease;
   }
 
-  .embla__slide__number:hover {
-    transform: scale(1.05);
-    opacity: 0.9;
+  .embla__slide img {
+    width: 65%;
+    height: auto;
+    object-fit: contain;
+    filter: grayscale(100%) brightness(0.85);
+    opacity: 0.7;
+    transition: all 0.35s ease;
+  }
+
+  /* 🔹 Efecto visual al pasar */
+  .embla__slide img {
+    border-radius: 0.5rem;
+    mix-blend-mode: multiply;
+  }
+
+  /* 🔹 Responsivo */
+  @media (max-width: 1024px) {
+    .embla {
+      --slide-size: 30%;
+      --slide-spacing: 1.5rem;
+    }
+
+    .embla__slide img {
+      width: 70%;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .embla {
+      --slide-size: 45%;
+      --slide-spacing: 1rem;
+    }
+
+    .embla__slide img {
+      width: 80%;
+    }
   }
 </style>
 
 <section class="embla">
   <div class="embla__viewport">
     <div class="embla__container">
-      <div class="embla__slide"><div class="embla__slide__number">1</div></div>
-      <div class="embla__slide"><div class="embla__slide__number">2</div></div>
-      <div class="embla__slide"><div class="embla__slide__number">3</div></div>
-      <div class="embla__slide"><div class="embla__slide__number">4</div></div>
-      <div class="embla__slide"><div class="embla__slide__number">5</div></div>
+      {imagePathsStore.map((src, i) => (
+        <div class="embla__slide">
+          <img src={src} alt={`logo ${i + 1}`} loading="lazy" />
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -64,13 +88,17 @@
     const emblaNode = document.querySelector(".embla");
     const viewport = emblaNode.querySelector(".embla__viewport");
 
-    const autoplay = EmblaCarouselAutoplay({ delay: 4000, stopOnInteraction: false });
-    const emblaApi = EmblaCarousel(viewport, {
-      loop: true,
-      align: "center",
-      skipSnaps: false,
-    }, [autoplay]);
+    const autoplay = EmblaCarouselAutoplay({
+      delay: 2500,
+      stopOnInteraction: false,
+    });
 
-    console.log("🎠 Embla iniciado:", emblaApi.slideNodes().length, "slides");
+    const emblaApi = EmblaCarousel(
+      viewport,
+      { loop: true, align: "start", skipSnaps: false },
+      [autoplay]
+    );
+
+    /* console.log("🎠 Carrusel de logos mejorado iniciado", emblaApi); */
   });
 </script>

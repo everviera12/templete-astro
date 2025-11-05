@@ -17,14 +17,12 @@ const imageFilesStore = fs.readdirSync(dirPathStores).filter((file) => file.matc
 const imagePaths = imageFiles.map((file) => `/events/${file}`);
 const imagePathsNoti = imageFilesNoti.map((file) => `/notifications/${file}`);
 const imagePathsStore = imageFilesStore.map((file) => `/store/${file}`);
-console.log(imagePathsStore);
-
 ---
 
 <Layout title="Inicio | Urban Village">
     <HomeBanner />
 
-    <CarouselStore />
+    <CarouselStore imagePathsStore={imagePathsStore}/>
 
     <Carousel
         images={imagePaths}
