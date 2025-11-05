@@ -1,1 +1,19 @@
-<h1>anuncios</h1>
+---
+import fs from "fs";
+import path from "path";
+import Layout from "../layouts/Layout.astro";
+import BannerText from "../components/sections/BannerText.astro";
+
+const dirPath = path.resolve("public/events");
+const dirPathNoti = path.resolve("public/notifications");
+
+const imageFiles = fs.readdirSync(dirPath).filter((file) => file.match(/\.(png|jpe?g|gif|webp|svg)$/));
+const imageFilesNoti = fs.readdirSync(dirPathNoti).filter((file) => file.match(/\.(png|jpe?g|gif|webp|svg)$/));
+
+const imagePaths = imageFiles.map((file) => `/events/${file}`);
+const imagePathsNoti = imageFilesNoti.map((file) => `/notifications/${file}`);
+---
+
+<Layout title="Anuncios | Urban Village">
+    <BannerText title="Eventos" />
+</Layout>

@@ -1,0 +1,12 @@
+---
+const { title } = Astro.props;
+---
+
+<div
+    class="h-100 grid items-center bg-top bg-cover"
+    style={`background-image: url('/background/bg-shops.png');`}
+>
+    {title && (
+        <h2 class="text-center text-7xl font-bold text-white">{title}</h2>
+    )}
+</div>
