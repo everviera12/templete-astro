@@ -1,0 +1,76 @@
+<style>
+  .embla {
+    max-width: 48rem;
+    margin: 3rem auto;
+    --slide-height: 18rem;
+    --slide-spacing: 1rem;
+    --slide-size: 60%;
+  }
+
+  .embla__viewport {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  .embla__container {
+    display: flex;
+    touch-action: pan-y pinch-zoom;
+    margin-left: calc(var(--slide-spacing) * -1);
+  }
+
+  .embla__slide {
+    flex: 0 0 var(--slide-size);
+    min-width: 0;
+    padding-left: var(--slide-spacing);
+  }
+
+  .embla__slide__number {
+    background: linear-gradient(135deg, #7f5af0, #2cb67d);
+    color: white;
+    border-radius: 1rem;
+    font-size: 3rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--slide-height);
+    user-select: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .embla__slide__number:hover {
+    transform: scale(1.05);
+    opacity: 0.9;
+  }
+</style>
+
+<section class="embla">
+  <div class="embla__viewport">
+    <div class="embla__container">
+      <div class="embla__slide"><div class="embla__slide__number">1</div></div>
+      <div class="embla__slide"><div class="embla__slide__number">2</div></div>
+      <div class="embla__slide"><div class="embla__slide__number">3</div></div>
+      <div class="embla__slide"><div class="embla__slide__number">4</div></div>
+      <div class="embla__slide"><div class="embla__slide__number">5</div></div>
+    </div>
+  </div>
+</section>
+
+<script src="https://unpkg.com/embla-carousel/embla-carousel.umd.js"></script>
+<script src="https://unpkg.com/embla-carousel-autoplay/embla-carousel-autoplay.umd.js"></script>
+
+<script is:inline>
+  document.addEventListener("DOMContentLoaded", () => {
+    const emblaNode = document.querySelector(".embla");
+    const viewport = emblaNode.querySelector(".embla__viewport");
+
+    const autoplay = EmblaCarouselAutoplay({ delay: 4000, stopOnInteraction: false });
+    const emblaApi = EmblaCarousel(viewport, {
+      loop: true,
+      align: "center",
+      skipSnaps: false,
+    }, [autoplay]);
+
+    console.log("🎠 Embla iniciado:", emblaApi.slideNodes().length, "slides");
+  });
+</script>
