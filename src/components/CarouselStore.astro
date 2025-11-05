@@ -8,7 +8,6 @@ console.log(imagePathsStore);
     max-width: 92rem;
     margin: 4rem 1.5rem;
     padding: 1rem 0;
-    --slide-spacing: 2.5rem;
     --slide-size: 20%;
   }
 
@@ -18,7 +17,6 @@ console.log(imagePathsStore);
 
   .embla__container {
     display: flex;
-    gap: var(--slide-spacing);
     align-items: center;
   }
 
@@ -30,11 +28,9 @@ console.log(imagePathsStore);
   }
 
   .embla__slide img {
-    width: 65%;
+    width: 45%;
     height: auto;
-    object-fit: contain;
-    filter: grayscale(100%) brightness(0.85);
-    opacity: 0.7;
+    /* object-fit: contain; */
     transition: all 0.35s ease;
   }
 
@@ -71,7 +67,7 @@ console.log(imagePathsStore);
 <section class="embla">
   <div class="embla__viewport">
     <div class="embla__container">
-      {imagePathsStore.map((src, i) => (
+      {imagePathsStore.map((src: string, i: number) => (
         <div class="embla__slide">
           <img src={src} alt={`logo ${i + 1}`} loading="lazy" />
         </div>

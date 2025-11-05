@@ -7,7 +7,7 @@ const { images, label, source, bgButton, bgButtonHover, txtButton, txtHover } = 
 <div class="py-16 space-y-16">
     <div class="embla">
         <div class="embla__container">
-            {images.map(( src, i ) => (
+            {images.map(( src: string, i: number ) => (
                 <img src={src} alt={`slide ${i + 1}`} class="w-100" />
             ))}
         </div>
