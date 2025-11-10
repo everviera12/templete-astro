@@ -56,7 +56,7 @@ export const stores: Store[] = [
     { title: "MACROPAY", image: macropayLogo, horario: "10:00am - 8:00pm", category: "Servicios y entretenimiento" },
     { title: "MAS VISION", image: masVisionLogo, horario: "11:00am - 8:00pm", category: "Salud y belleza" },
     { title: "MR TOST", image: mrTostLogo, horario: "12:00pm - 8:00pm", category: "Alimentos" },
-    { title: "MINI SHOP", image: "", horario: "PRÓXIMA APERTURA", category: "Otros" },
+    { title: "MINI SHOP", image: '', horario: "", category: "Otros" },
     { title: "PARISINA", image: parisinaLogo, horario: "10:00am - 8:00pm", category: "Departamentales" },
     { title: "PALAX", image: palaxLogo, horario: "24hrs", category: "Alimentos" },
     { title: "PERLA'S BALLON'S", image: perlasBallonsLogo, horario: "10:00am - 9:00pm", category: "Especializadas" },
@@ -64,6 +64,6 @@ export const stores: Store[] = [
     { title: "PROMODA", image: promodaLogo, horario: "11:00am - 8:00pm", category: "Ropa y accesorios" },
     { title: "SALLYBEAUTY", image: sallyLogo, horario: "10:00am - 8:00pm", category: "Salud y belleza" },
     { title: "SILVIA CARNEVALI", image: silviaCarnevaliLogo, horario: "10:00am - 8:00pm", category: "Ropa y accesorios" },
-    { title: "VEN X MAS", image: "", horario: "8:00am - 8:00pm", category: "Alimentos" },
+    { title: "VEN X MAS", image: '', horario: "8:00am - 8:00pm", category: "Alimentos" },
     { title: "YOGUFRUT", image: yogufrutLogo, horario: "10:00am - 9:00pm", category: "Alimentos" },
 ].sort((a, b) => a.title.localeCompare(b.title));

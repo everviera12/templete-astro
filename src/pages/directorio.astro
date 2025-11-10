@@ -1,10 +1,123 @@
 ---
-import Layout from "../layouts/Layout.astro";
 import BannerText from "../components/sections/BannerText.astro";
+import Layout from "../layouts/Layout.astro";
+import { stores } from "../../public/stores";
+
+const categories = Array.from(new Set(stores.map((s) => s.category)));
 ---
 
-<Layout title="Anuncios | Urban Village">
-    <BannerText title="Directorio" />
+<Layout title="Directorio | Urban Village">
+    <BannerText title="Directorio de Tiendas" />
 
-    
+    <section class="grid grid-cols-1 lg:grid-cols-[420px_1fr] lg:h-[calc(100vh-6rem)] bg-neutral-50">
+    <!-- LISTA DE TIENDAS -->
+        <aside class="flex flex-col h-full overflow-hidden border-r border-neutral-200 bg-white">
+        <!-- Header -->
+            <div class="p-6 border-b border-neutral-200">
+                <h2 class="text-xl font-semibold text-neutral-900">Tiendas</h2>
+
+                <div class="mt-3 gap-3 grid lg:flex">
+                    <input
+                        id="searchInput"
+                        type="text"
+                        placeholder="Buscar..."
+                        class="flex-1 rounded-lg border border-neutral-300 bg-neutral-100 px-3 py-2 text-sm text-neutral-700"
+                    />
+
+                    <select
+                        id="categorySelect"
+                        class="rounded-lg border border-neutral-300 bg-neutral-100 px-3 py-2 text-sm text-neutral-700 lg:w-36"
+                    >
+                        <option value="">Categorías</option>
+                        {
+                        categories.map((category) => (
+                            <option value={category}>{category}</option>
+                        ))
+                        }
+                    </select>
+                </div>
+            </div>
+
+        <!-- Contenido scrollable -->
+            <div id="storeList" class="flex-1 overflow-y-auto px-6 py-6 space-y-10">
+                { categories.map((category) => (
+                    <div class="category-group" data-category={category}>
+                        <h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">
+                            {category}
+                        </h3>
+                        <div class="space-y-1.5">
+                            {stores
+                            .filter((store) => store.category === category)
+                            .map((store) => (
+                                <div
+                                class="grid grid-cols-6 items-center gap-3 p-2 rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer group store-item"
+                                data-title={store.title.toLowerCase()}
+                                data-category={store.category}
+                                >
+                                {store.image && (
+                                    <img
+                                    src={store.image?.src || "/404.png"}
+                                    alt={store.title}
+                                    class="w-10 h-10 object-contain rounded-md bg-white group-hover:opacity-90 transition-opacity"
+                                    loading="lazy"
+                                    />
+                                )}
+                                <div class="col-span-4">
+                                    <h4 class="text-sm font-medium text-neutral-800 group-hover:text-neutral-950 transition-colors">
+                                    {store.title}
+                                    </h4>
+                                    <p class="text-xs text-neutral-500">{store.horario}</p>
+                                </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                ))}
+            </div>
+        </aside>
+
+        <!-- MAPA SCROLLEABLE -->
+        <div class="w-full h-[90vh] overflow-auto">
+            <img src="/mapa.jpg" alt="Mapa" class="w-full h-auto object-contain" />
+        </div>
+    </section>
 </Layout>
+
+<script is:inline>
+    const input = document.getElementById("searchInput");
+    const select = document.getElementById("categorySelect");
+    const items = document.querySelectorAll(".store-item");
+    const groups = document.querySelectorAll(".category-group");
+
+    function filterStores() {
+        const searchText = input.value.toLowerCase();
+        const selectedCategory = select.value;
+
+        groups.forEach((group) => {
+        const category = group.dataset.category;
+        const storeItems = group.querySelectorAll(".store-item");
+
+        let visibleCount = 0;
+
+        storeItems.forEach((item) => {
+            const title = item.dataset.title;
+            const matchesText = title.includes(searchText);
+            const matchesCategory =
+            !selectedCategory || category === selectedCategory;
+
+            if (matchesText && matchesCategory) {
+            item.style.display = "grid";
+            visibleCount++;
+            } else {
+            item.style.display = "none";
+            }
+        });
+
+        // Ocultar grupo si no tiene resultados
+        group.style.display = visibleCount > 0 ? "block" : "none";
+        });
+    }
+
+    input.addEventListener("input", filterStores);
+    select.addEventListener("change", filterStores);
+</script>
