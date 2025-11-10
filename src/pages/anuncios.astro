@@ -16,4 +16,16 @@ const imagePathsNoti = imageFilesNoti.map((file) => `/notifications/${file}`);
 
 <Layout title="Anuncios | Urban Village">
     <BannerText title="Eventos" />
+
+    <div class="grid grid-cols-3 mx-auto px-10 py-16 gap-16 justify-self-center">
+        {imagePaths.map(img => (
+            <img src={img} alt="imagenes" />
+        ))}
+    </div>
+
+    <div class="grid grid-cols-3 mx-auto px-10 py-16 gap-16 justify-self-center">
+        {imagePathsNoti.map(img => (
+            <img src={img} alt="imagenes" />
+        ))}
+    </div>
 </Layout>
