@@ -93,20 +93,28 @@ const categories = Array.from(new Set(stores.map((s) => s.category)));
     </aside>
 
     <!-- MAPA SCROLLEABLE -->
+    <div class="block lg:hidden">
+      <div
+        id="mapContainer"
+        class="fixed inset-0 z-50 w-full h-full bg-black/40 hidden items-center justify-center p-4 lg:relative lg:block lg:h-[90vh] lg:w-full lg:p-0"
+      >
+        <Icon
+          name="close"
+          class="absolute z-50 top-4 left-4 size-16 text-neutral-100 cursor-pointer lg:hidden"
+          id="closeMapBtn"
+        />
+        <img
+          src="/mapa.jpg"
+          alt="Mapa"
+          class="w-full h-full object-contain transform scale-95 opacity-0 transition-all duration-500"
+        />
+      </div>
+    </div>
+
     <div
-      id="mapContainer"
-      class="fixed inset-0 z-50 w-full h-full bg-black/40 hidden items-center justify-center p-4 lg:relative lg:block lg:h-[90vh] lg:w-full lg:p-0"
+      class="w-full h-[90vh] overflow-auto hidden lg:block"
     >
-      <Icon
-        name="close"
-        class="absolute z-50 top-4 left-4 size-16 text-neutral-100 cursor-pointer lg:hidden"
-        id="closeMapBtn"
-      />
-      <img
-        src="/mapa.jpg"
-        alt="Mapa"
-        class="w-full h-full object-contain transform scale-95 opacity-0 transition-all duration-500"
-      />
+      <img src="/mapa.jpg" alt="Mapa" class="w-full h-auto object-contain" />
     </div>
   </section>
 </Layout>
