@@ -1,55 +1,117 @@
 ---
-import Icon from "../Icon.astro";
+    import Icon from "../Icon.astro";
 
-const homeBanner = [
-    { title: "Titulo 1", image: "/background/background-rose.png" },
-];
-
+    const homeBanner = [
+        {
+            title: "Visita nuestras tiendas",
+            image: "/background/background-rose.png",
+            link: "/anuncios",
+        },
+        {
+            title: "Ve nuestros próximos eventos",
+            image: "/background/background.svg",
+            link: "/directorio",
+        },
+        {
+            title: "¿Buscas rentar un local?",
+            image: "/background/bg-shops.png",
+            link: "/contacto",
+        },
+    ];
 ---
-<section 
+
+<section
     id="banner"
-    class="relative h-[85vh] bg-center bg-cover transition-all duration-700"
+    class="relative h-[70vh] md:h-[80vh] bg-center bg-cover flex items-center transition-all duration-700"
     style={`background-image: url('${homeBanner[0].image}')`}
 >
-    <h1 id="banner_text" class="text-3xl">{homeBanner[0].title}</h1>
+    <!-- LEFT TEXT BLOCK -->
+    <div
+        class="w-full md:w-1/2 h-full flex flex-col justify-center px-10 md:px-20 relative"
+    >
+        <h1
+            id="banner_text"
+            class="text-5xl font-bold from-purple-600 via-pink-600 to-violet-600 bg-linear-to-r bg-clip-text text-transparent"
+        >
+            {homeBanner[0].title}
+        </h1>
 
-    <div class="flex justify-between absolute bottom-0 w-full px-10 py-2.5 bg-pink-50">
-        <Icon id='prev' name="arrow" class="size-8 rotate-180 cursor-pointer stroke-2 text-pink-800"/>
-        <Icon id='next' name="arrow" class="size-8 cursor-pointer stroke-2 text-pink-800"/>
+        <a
+            id="banner_btn"
+            href={homeBanner[0].link}
+            class="bg-linear-to-r w-fit from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transform hover:scale-105 transition duration-300 ease-in-out mt-5 text-center"
+        >
+            Explorar
+        </a>
+    </div>
+
+    <!-- RIGHT EMPTY COLUMN -->
+    <div class="hidden md:block w-1/2 h-full"></div>
+
+    <!-- CONTROLS -->
+    <div class="flex justify-between absolute bottom-0 w-full px-10 py-3 bg-violet-600/30 backdrop-blur-md">
+        <Icon id="prev" name="arrow" class="size-8 rotate-180 cursor-pointer stroke-2 text-white hover:scale-110 transition duration-200" />
+        <Icon id="next" name="arrow" class="size-8 cursor-pointer stroke-2 text-white hover:scale-110 transition duration-200" />
     </div>
 </section>
 
 <script is:inline>
-    const homeBanner = [
+    const backgrounds = [
         "/background/background-rose.png",
         "/background/background.svg",
-        "/background/bg-shops.png"
+        "/background/bg-shops.png",
     ];
 
-    const textBanner = [
-        "Titulo 1",
-        "Titulo 2",
-        "Titulo 3"
-    ]
+    const texts = [
+        "Visita nuestras tiendas",
+        "Ve nuestros próximos eventos",
+        "¿Buscas rentar un local?",
+    ];
+
+    const links = ["/anuncios", "/directorio", "/contacto"];
 
     let current = 0;
+
     const banner = document.getElementById("banner");
     const text = document.getElementById("banner_text");
+    const btn = document.getElementById("banner_btn");
     const nextBtn = document.getElementById("next");
     const prevBtn = document.getElementById("prev");
 
-    const changeBackground = (index) => {
-        banner.style.backgroundImage = `url('${homeBanner[index]}')`;
-        text.textContent = textBanner[index];
+    const animateText = () => {
+        text.style.opacity = "0";
+        text.style.transform = "translateY(10px)";
+
+        setTimeout(() => {
+        text.textContent = texts[current];
+        text.style.opacity = "1";
+        text.style.transform = "translateY(0)";
+        }, 250);
     };
 
-    document.getElementById("next").addEventListener("click", () => {
-        current = (current + 1) % homeBanner.length;
+    const updateButton = () => {
+        btn.href = links[current];
+    };
+
+    const changeBackground = (index) => {
+        banner.style.backgroundImage = `url('${backgrounds[index]}')`;
+        animateText();
+        updateButton();
+    };
+
+    nextBtn.addEventListener("click", () => {
+        current = (current + 1) % backgrounds.length;
         changeBackground(current);
     });
 
-    document.getElementById("prev").addEventListener("click", () => {
-        current = (current - 1 + homeBanner.length) % homeBanner.length;
+    prevBtn.addEventListener("click", () => {
+        current = (current - 1 + backgrounds.length) % backgrounds.length;
         changeBackground(current);
     });
+
+    // initial animation
+    setTimeout(() => {
+        text.style.opacity = "1";
+        text.style.transform = "translateY(0)";
+    }, 150);
 </script>
