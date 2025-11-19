@@ -10,113 +10,115 @@ const categories = Array.from(new Set(stores.map((s) => s.category)));
 <Layout title="Directorio | Urban Village">
   <BannerText title="Directorio de Tiendas" />
 
-  <section
-    class="grid grid-cols-1 lg:grid-cols-[420px_1fr] lg:h-[calc(100vh-6rem)] bg-neutral-50"
-  >
-    <!-- LISTA DE TIENDAS -->
-    <aside
-      class="flex flex-col h-full overflow-hidden border-r border-neutral-200 bg-white"
+  <div class="h-screen">
+    <section
+      class="grid grid-cols-1 lg:grid-cols-[420px_1fr] lg:h-[calc(100vh-6rem)]"
     >
-      <!-- Header -->
-      <div class="p-6 border-b border-neutral-200">
-        <h2 class="text-xl font-semibold text-neutral-900">Tiendas</h2>
+      <!-- LISTA DE TIENDAS -->
+      <aside
+        class="flex flex-col h-full overflow-hidden border-r border-neutral-200 bg-white"
+      >
+        <!-- Header -->
+        <div class="p-6 border-b border-neutral-200">
+          <h2 class="text-xl font-semibold text-neutral-900">Tiendas</h2>
 
-        <div class="mt-3 gap-3 grid lg:flex">
-          <input
-            id="searchInput"
-            type="text"
-            placeholder="Buscar..."
-            class="flex-1 rounded border border-neutral-300 bg-neutral-100 px-3 py-2 text-sm text-neutral-700"
-          />
+          <div class="mt-3 gap-3 grid lg:flex">
+            <input
+              id="searchInput"
+              type="text"
+              placeholder="Buscar..."
+              class="flex-1 rounded border border-neutral-300 bg-neutral-100 px-3 py-2 text-sm text-neutral-700"
+            />
 
-          <select
-            id="categorySelect"
-            class="rounded border border-neutral-300 bg-neutral-100 px-3 py-2 text-sm text-neutral-700 lg:w-36"
-          >
-            <option value="">Categorías</option>
-            {
-              categories.map((category) => (
-                <option value={category}>{category}</option>
-              ))
-            }
-          </select>
-
-          <div class="block lg:hidden">
-            <button
-              id="viewMapBtn"
-              class="w-full py-2 px-4 rounded-lg text-white font-semibold bg-linear-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-colors"
+            <select
+              id="categorySelect"
+              class="rounded border border-neutral-300 bg-neutral-100 px-3 py-2 text-sm text-neutral-700 lg:w-36"
             >
-              Ver mapa
-            </button>
+              <option value="">Categorías</option>
+              {
+                categories.map((category) => (
+                  <option value={category}>{category}</option>
+                ))
+              }
+            </select>
+
+            <div class="block lg:hidden">
+              <button
+                id="viewMapBtn"
+                class="w-full py-2 px-4 rounded-lg text-white font-semibold bg-linear-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 transition-colors"
+              >
+                Ver mapa
+              </button>
+            </div>
           </div>
+        </div>
+
+        <!-- Contenido scrollable -->
+        <div id="storeList" class="flex-1 overflow-y-auto px-6 py-6 space-y-10">
+          {
+            categories.map((category) => (
+              <div class="category-group" data-category={category}>
+                <h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">
+                  {category}
+                </h3>
+                <div class="space-y-1.5">
+                  {stores
+                    .filter((store) => store.category === category)
+                    .map((store) => (
+                      <div
+                        class="grid grid-cols-6 items-center gap-3 p-2 rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer group store-item"
+                        data-title={store.title.toLowerCase()}
+                        data-category={store.category}
+                      >
+                        {store.image && (
+                          <img
+                            src={store.image?.src || "/404.png"}
+                            alt={store.title}
+                            class="w-10 h-10 object-contain rounded-md bg-white group-hover:opacity-90 transition-opacity"
+                            loading="lazy"
+                          />
+                        )}
+                        <div class="col-span-4">
+                          <h4 class="text-sm font-medium text-neutral-800 group-hover:text-neutral-950 transition-colors">
+                            {store.title}
+                          </h4>
+                          <p class="text-xs text-neutral-500">
+                            {store.horario}
+                          </p>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </aside>
+
+      <!-- MAPA SCROLLEABLE -->
+      <div class="block lg:hidden">
+        <div
+          id="mapContainer"
+          class="fixed inset-0 z-50 w-full h-full bg-black/40 hidden items-center justify-center p-4 lg:relative lg:block lg:h-[90vh] lg:w-full lg:p-0"
+        >
+          <Icon
+            name="close"
+            class="absolute z-50 top-4 left-4 size-16 text-neutral-100 cursor-pointer lg:hidden"
+            id="closeMapBtn"
+          />
+          <img
+            src="/mapa.jpg"
+            alt="Mapa"
+            class="w-full h-full object-contain transform scale-95 opacity-0 transition-all duration-500"
+          />
         </div>
       </div>
 
-      <!-- Contenido scrollable -->
-      <div id="storeList" class="flex-1 overflow-y-auto px-6 py-6 space-y-10">
-        {
-          categories.map((category) => (
-            <div class="category-group" data-category={category}>
-              <h3 class="text-sm font-semibold text-neutral-500 uppercase tracking-wide mb-3">
-                {category}
-              </h3>
-              <div class="space-y-1.5">
-                {stores
-                  .filter((store) => store.category === category)
-                  .map((store) => (
-                    <div
-                      class="grid grid-cols-6 items-center gap-3 p-2 rounded-lg hover:bg-neutral-100 transition-colors cursor-pointer group store-item"
-                      data-title={store.title.toLowerCase()}
-                      data-category={store.category}
-                    >
-                      {store.image && (
-                        <img
-                          src={store.image?.src || "/404.png"}
-                          alt={store.title}
-                          class="w-10 h-10 object-contain rounded-md bg-white group-hover:opacity-90 transition-opacity"
-                          loading="lazy"
-                        />
-                      )}
-                      <div class="col-span-4">
-                        <h4 class="text-sm font-medium text-neutral-800 group-hover:text-neutral-950 transition-colors">
-                          {store.title}
-                        </h4>
-                        <p class="text-xs text-neutral-500">{store.horario}</p>
-                      </div>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          ))
-        }
+      <div class="w-full h-[90vh] overflow-auto hidden lg:block">
+        <img src="/mapa.jpg" alt="Mapa" class="w-full h-auto object-contain" />
       </div>
-    </aside>
-
-    <!-- MAPA SCROLLEABLE -->
-    <div class="block lg:hidden">
-      <div
-        id="mapContainer"
-        class="fixed inset-0 z-50 w-full h-full bg-black/40 hidden items-center justify-center p-4 lg:relative lg:block lg:h-[90vh] lg:w-full lg:p-0"
-      >
-        <Icon
-          name="close"
-          class="absolute z-50 top-4 left-4 size-16 text-neutral-100 cursor-pointer lg:hidden"
-          id="closeMapBtn"
-        />
-        <img
-          src="/mapa.jpg"
-          alt="Mapa"
-          class="w-full h-full object-contain transform scale-95 opacity-0 transition-all duration-500"
-        />
-      </div>
-    </div>
-
-    <div
-      class="w-full h-[90vh] overflow-auto hidden lg:block"
-    >
-      <img src="/mapa.jpg" alt="Mapa" class="w-full h-auto object-contain" />
-    </div>
-  </section>
+    </section>
+  </div>
 </Layout>
 
 <script is:inline>
